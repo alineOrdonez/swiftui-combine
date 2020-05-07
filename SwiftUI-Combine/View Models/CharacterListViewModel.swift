@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import Combine
 
 class CharacterListViewModel: ObservableObject {
+    
+    private var cancellable: AnyCancellable?
     
     @Published var characters = [Character]()
     
@@ -17,22 +20,11 @@ class CharacterListViewModel: ObservableObject {
     }
     
     func fetchCharacters() {
-        fetchAll { result in
-            switch result {
-            case .failure(let error):
-                print(error.errorDescription!)
-                break
-            case .success(let response):
-                if let results = response.data?.results {
-                    self.characters = results
+        self.cancellable = WebService().getCharacters()
+            .sink(receiveCompletion: { _ in }, receiveValue: { detail in
+                if let characters = detail.data?.results {
+                    self.characters = characters
                 }
-                break
-            }
-        }
-    }
-    
-    func fetchAll(completion: @escaping (Result<CCharactersResponse>) -> Void) {
-        let request: CBaseRequest = CBaseRequest(offset: characters.count, limit: 100)
-        WebService().makeRequest(with: request, and: EndpointUrl.characters.rawValue, completion: completion)
+            })
     }
 }

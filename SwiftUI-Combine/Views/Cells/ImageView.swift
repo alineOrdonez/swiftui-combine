@@ -10,11 +10,11 @@ import SwiftUI
 
 struct ImageView<Placeholder: View>: View {
     
-    @ObservedObject private var loader: ImageLoader
+    @ObservedObject private var loader: ImageLoaderViewModel
     private let placeholder: Placeholder?
     
     init(url: String, placeholder: Placeholder? = nil) {
-        loader = ImageLoader(url: url)
+        loader = ImageLoaderViewModel(url: url)
         self.placeholder = placeholder
     }
     
@@ -38,7 +38,7 @@ struct ImageView<Placeholder: View>: View {
 #if DEBUG
 struct ImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageView(url: "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg", placeholder: Text("Loading..."))
+        ImageView(url: "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg", placeholder: Text("Loading...")).previewLayout(.sizeThatFits).environment(\.sizeCategory, .extraExtraLarge)
     }
 }
 #endif

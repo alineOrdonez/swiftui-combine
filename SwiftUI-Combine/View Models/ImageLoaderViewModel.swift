@@ -1,5 +1,5 @@
 //
-//  ImageLoader.swift
+//  ImageLoaderViewModel.swift
 //  SwiftUI-Combine
 //
 //  Created by Aline Ordoñez on 06/05/20.
@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import UIKit
 
-class ImageLoader: ObservableObject {
+class ImageLoaderViewModel: ObservableObject {
     
     @Published var image: UIImage?
     

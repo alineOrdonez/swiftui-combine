@@ -51,13 +51,10 @@ struct Character: Codable, Identifiable {
     let modified: String
     let urls: [Urls]?
     let thumbnail: Thumbnail?
-//    let comics: [Comic]?
-//    let stories: [Story]?
-//    let events: [Event]?
-//    let series: [Serie]?
+    let comics: Comic?
     
     enum CodingKeys: String, CodingKey {
-        case id, name, modified, urls, thumbnail //, comics, stories, events, series
+        case id, name, modified, urls, thumbnail, comics
         case detail = "description"
     }
     
@@ -65,20 +62,20 @@ struct Character: Codable, Identifiable {
         let type: String
         let url: String
     }
+}
+
+struct Thumbnail: Codable {
+    let path: String
+    let imgExtension: String
     
-    struct Thumbnail: Codable {
-        let path: String
-        let imgExtension: String
-        
-        enum CodingKeys: String, CodingKey {
-            case path
-            case imgExtension = "extension"
-        }
+    enum CodingKeys: String, CodingKey {
+        case path
+        case imgExtension = "extension"
     }
 }
 
 extension Character {
     static func getCharacter() -> Character {
-        return Character(id: 1010699, name: "Aaron Stack", detail: "AIM is a terrorist organization bent on destroying the world.", modified: "1969-12-31T19:00:00-0500", urls: nil, thumbnail: Character.Thumbnail(path: "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784", imgExtension: "jpg"))
+        return Character(id: 1010699, name: "Aaron Stack", detail: "AIM is a terrorist organization bent on destroying the world.", modified: "1969-12-31T19:00:00-0500", urls: nil, thumbnail: Thumbnail(path: "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784", imgExtension: "jpg"), comics: Comic.getAll())
     }
 }

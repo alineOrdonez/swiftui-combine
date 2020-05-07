@@ -16,11 +16,11 @@ struct CharacterCell: View {
         let thumbnail = character.thumbnail!
         let url = "\(thumbnail.path).\(thumbnail.imgExtension)"
         
-        return VStack(alignment: .center) {
-            Spacer()
+        return VStack() {
             ImageView(url: url, placeholder: Text("Loading...")).aspectRatio(contentMode: .fit)
-            Text(character.name).bold()
-            Spacer(minLength: 10)
+            Text(character.name)
+                .font(.title)
+                .lineLimit(nil)
         }
     }
 }

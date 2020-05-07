@@ -13,6 +13,7 @@ struct ContentView: View {
     
     init() {
         UINavigationBar.appearance().backgroundColor = .red
+        UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         UITableView.appearance().showsVerticalScrollIndicator = false
     }
@@ -22,7 +23,7 @@ struct ContentView: View {
         NavigationView {
             CharacterListView(characters: self.characterListVM.characters)
                 .navigationBarTitle("List of Characters")
-        }
+        }.edgesIgnoringSafeArea(Edge.Set(.bottom))
     }
 }
 
